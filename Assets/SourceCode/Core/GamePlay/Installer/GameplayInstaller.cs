@@ -1,12 +1,17 @@
+using Core.Views;
 using UnityEngine;
 using Zenject;
 
-public class GameplayInstaller : MonoInstaller
+namespace Core.Gameplay
 {
-    public override void InstallBindings()
+
+    public class GameplayInstaller : MonoInstaller
     {
-        Container.Bind<GamePlayView>().FromComponentInHierarchy().AsSingle();
-        Container.Bind<GameOverView>().FromComponentInHierarchy().AsSingle();
-        Container.BindInterfacesAndSelfTo<GameController>().AsSingle().NonLazy();
+        public override void InstallBindings()
+        {
+            Container.Bind<GamePlayView>().FromComponentInHierarchy().AsSingle();
+            Container.Bind<GameOverView>().FromComponentInHierarchy().AsSingle();
+            Container.BindInterfacesAndSelfTo<GameController>().AsSingle().NonLazy();
+        }
     }
 }

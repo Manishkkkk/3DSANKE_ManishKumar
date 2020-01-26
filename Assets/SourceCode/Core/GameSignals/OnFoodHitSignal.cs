@@ -1,4 +1,6 @@
-﻿public struct OnFoodHitSignal
+﻿using Core.Food;
+
+public struct OnFoodHitSignal
 {
     public IFoodUnit foodUnit;
     public IFoodScore foodScore;

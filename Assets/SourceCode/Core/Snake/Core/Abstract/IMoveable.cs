@@ -1,4 +1,7 @@
-﻿public interface IMoveable
+﻿namespace Core.Snake
 {
-    void Move();
+    public interface IMoveable
+    {
+        void Move();
+    }
 }

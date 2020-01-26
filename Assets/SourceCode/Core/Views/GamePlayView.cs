@@ -3,55 +3,59 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Zenject;
+using Frame.Views;
 
-public class GamePlayView : View<GamePlayView>
+namespace Core.Views
 {
-    [SerializeField] private Settings settings;
-
-    SignalBus signalBus;
-
-    [Inject]
-    private void Construct(SignalBus signalBus)
+    public class GamePlayView : View<GamePlayView>
     {
-        this.signalBus = signalBus;
-    }
+        [SerializeField] private Settings settings;
 
-    public override void OnEnable()
-    {
-        base.OnEnable();
-        UpdateScore(0);
-        signalBus.Subscribe<OnScoreUpdateSignal>(onScoreUpdateSignal);
-        signalBus.Subscribe<OnStreakUpdateSignal>(OnStreakUpdateSignal);
-    }
+        SignalBus signalBus;
 
-    public override void OnDisable()
-    {
-        signalBus.Unsubscribe<OnScoreUpdateSignal>(onScoreUpdateSignal);
-        signalBus.Unsubscribe<OnStreakUpdateSignal>(OnStreakUpdateSignal);
-        base.OnDisable();
-    }
+        [Inject]
+        private void Construct(SignalBus signalBus)
+        {
+            this.signalBus = signalBus;
+        }
 
-    private void onScoreUpdateSignal(OnScoreUpdateSignal onScoreUpdateSignal)
-    {
-        UpdateScore(onScoreUpdateSignal.score);
-    }
+        public override void OnEnable()
+        {
+            base.OnEnable();
+            UpdateScore(0);
+            signalBus.Subscribe<OnScoreUpdateSignal>(onScoreUpdateSignal);
+            signalBus.Subscribe<OnStreakUpdateSignal>(OnStreakUpdateSignal);
+        }
 
-    private void UpdateScore(int Score)
-    {
-        settings.txtScore.text = Score.ToString();
-    }
+        public override void OnDisable()
+        {
+            signalBus.Unsubscribe<OnScoreUpdateSignal>(onScoreUpdateSignal);
+            signalBus.Unsubscribe<OnStreakUpdateSignal>(OnStreakUpdateSignal);
+            base.OnDisable();
+        }
 
-    private void OnStreakUpdateSignal(OnStreakUpdateSignal onStreakUpdateSignal)
-    {
-        settings.txtStrekScore.gameObject.SetActive(true);
-        settings.txtStrekScore.text = onStreakUpdateSignal.streakValue.ToString();
-        LeanTween.scale(settings.txtStrekScore.gameObject, new Vector3(1.2f, 1.2f, 1.2f), 0.5f).setFrom(Vector3.one).setOnComplete(()=> settings.txtStrekScore.gameObject.SetActive(false));
-    }
+        private void onScoreUpdateSignal(OnScoreUpdateSignal onScoreUpdateSignal)
+        {
+            UpdateScore(onScoreUpdateSignal.score);
+        }
 
-    [System.Serializable]
-    public class Settings
-    {
-        public TMP_Text txtScore;
-        public TMP_Text txtStrekScore;
+        private void UpdateScore(int Score)
+        {
+            settings.txtScore.text = Score.ToString();
+        }
+
+        private void OnStreakUpdateSignal(OnStreakUpdateSignal onStreakUpdateSignal)
+        {
+            settings.txtStrekScore.gameObject.SetActive(true);
+            settings.txtStrekScore.text = onStreakUpdateSignal.streakValue.ToString();
+            LeanTween.scale(settings.txtStrekScore.gameObject, new Vector3(1.2f, 1.2f, 1.2f), 0.5f).setFrom(Vector3.one).setOnComplete(() => settings.txtStrekScore.gameObject.SetActive(false));
+        }
+
+        [System.Serializable]
+        public class Settings
+        {
+            public TMP_Text txtScore;
+            public TMP_Text txtStrekScore;
+        }
     }
 }

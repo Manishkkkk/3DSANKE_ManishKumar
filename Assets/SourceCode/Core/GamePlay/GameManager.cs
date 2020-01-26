@@ -3,19 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-public enum GameState
+namespace Core.Gameplay
 {
-    Start,
-    Process,
-    End
-}
-
-public class GameManager : MonoBehaviour, IInitializable
-{
-    public GameState gameState = GameState.Start;
-
-    public void Initialize()
+    public enum GameState
     {
-        gameState = GameState.Process;
+        Start,
+        Process,
+        End
+    }
+
+    public class GameManager : MonoBehaviour, IInitializable
+    {
+        public GameState gameState = GameState.Start;
+
+        public void Initialize()
+        {
+            gameState = GameState.Process;
+        }
     }
 }

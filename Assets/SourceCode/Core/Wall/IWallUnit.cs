@@ -1,4 +1,7 @@
-﻿public interface IWallUnit
+﻿namespace Core.Wall
 {
-    void OnSnakeHit();
+    public interface IWallUnit
+    {
+        void OnSnakeHit();
+    }
 }

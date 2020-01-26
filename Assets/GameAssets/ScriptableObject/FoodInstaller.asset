@@ -19,6 +19,7 @@ MonoBehaviour:
     typeId: 1
     center: {x: 0, y: 0, z: 0}
     size: {x: 40, y: 0, z: 40}
+    score: 20
   bluefoodSettings:
     foodPrefab: {fileID: 280375706177638803, guid: f4e8c53b0e980fe4f9c41bba7410a4d7,
       type: 3}
@@ -26,3 +27,4 @@ MonoBehaviour:
     typeId: 2
     center: {x: 0, y: 0, z: 0}
     size: {x: 40, y: 0, z: 40}
+    score: 30

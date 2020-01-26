@@ -1,7 +1,11 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public interface IBody
+namespace Core.Snake
 {
-    List<Transform> BodyPart { get; }
+
+    public interface IBody
+    {
+        List<Transform> BodyPart { get; }
+    }
 }

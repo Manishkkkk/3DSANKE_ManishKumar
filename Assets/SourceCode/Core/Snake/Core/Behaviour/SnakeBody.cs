@@ -1,24 +1,26 @@
 ﻿using UnityEngine;
 using Zenject;
-
-public class SnakeBody : MonoBehaviour, ISnakeBodyUnit
+namespace Core.Snake
 {
-    private SignalBus signalBus;
-    private void OnCollisionEnter(Collision collision)
+    public class SnakeBody : MonoBehaviour, ISnakeBodyUnit
     {
-        if (collision.gameObject.tag == "Snake")
+        private SignalBus signalBus;
+        private void OnCollisionEnter(Collision collision)
         {
-            OnSnakeBodyHit();
+            if (collision.gameObject.tag == "Snake")
+            {
+                OnSnakeBodyHit();
+            }
         }
-    }
 
-    public void InjectDependency(SignalBus signalBus)
-    {
-        this.signalBus = signalBus;
-    }
+        public void InjectDependency(SignalBus signalBus)
+        {
+            this.signalBus = signalBus;
+        }
 
-    public void OnSnakeBodyHit()
-    {
-        signalBus.Fire<OnSnakeBodyHitSignal>();
+        public void OnSnakeBodyHit()
+        {
+            signalBus.Fire<OnSnakeBodyHitSignal>();
+        }
     }
 }

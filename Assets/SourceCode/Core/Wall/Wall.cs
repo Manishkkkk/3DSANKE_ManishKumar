@@ -1,21 +1,23 @@
 ﻿using UnityEngine;
 using Zenject;
-
-public class Wall : MonoBehaviour, IWallUnit
+namespace Core.Wall
 {
-    [Inject]
-    private SignalBus signalBus;
-    private void OnCollisionEnter(Collision collision)
+    public class Wall : MonoBehaviour, IWallUnit
     {
-
-        if (collision.gameObject.tag == "Snake")
+        [Inject]
+        private SignalBus signalBus;
+        private void OnCollisionEnter(Collision collision)
         {
-            OnSnakeHit();
+
+            if (collision.gameObject.tag == "Snake")
+            {
+                OnSnakeHit();
+            }
         }
-    }
-    public void OnSnakeHit()
-    {
-        Debug.Log("On wall hit signal");
-        signalBus.Fire<OnSnakeWallHitSignal>();
+        public void OnSnakeHit()
+        {
+            Debug.Log("On wall hit signal");
+            signalBus.Fire<OnSnakeWallHitSignal>();
+        }
     }
 }

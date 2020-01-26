@@ -1,4 +1,7 @@
-﻿public interface ISnake : ISnakeBody, IMoveable, IBodyAddable
+﻿namespace Core.Snake
 {
+    public interface ISnake : ISnakeBody, IMoveable, IBodyAddable
+    {
 
+    }
 }

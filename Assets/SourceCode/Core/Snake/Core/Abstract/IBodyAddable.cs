@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
-
-public interface IBodyAddable
+namespace Core.Snake
 {
-    void AddBodyPart(Transform part);
+    public interface IBodyAddable
+    {
+        void AddBodyPart(Transform part);
+    }
 }

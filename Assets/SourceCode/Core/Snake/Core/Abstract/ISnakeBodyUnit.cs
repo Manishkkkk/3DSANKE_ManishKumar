@@ -1,7 +1,9 @@
 ﻿using Zenject;
-
-public interface ISnakeBodyUnit
+namespace Core.Snake
 {
-    void InjectDependency(SignalBus signalBus);
-    void OnSnakeBodyHit();
+    public interface ISnakeBodyUnit
+    {
+        void InjectDependency(SignalBus signalBus);
+        void OnSnakeBodyHit();
+    }
 }

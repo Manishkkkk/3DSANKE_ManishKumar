@@ -1,3 +1,5 @@
+using Core.ScoreSystem;
+using Frame.Views;
 using UnityEngine;
 using Zenject;
 

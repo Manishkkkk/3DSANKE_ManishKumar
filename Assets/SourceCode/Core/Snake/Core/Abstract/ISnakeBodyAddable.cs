@@ -1,5 +1,8 @@
-﻿public interface ISnakeBodyAddable
+﻿namespace Core.Snake
 {
-    ISnake Snake { get; }
-    //Here add the body to the snake
+    public interface ISnakeBodyAddable
+    {
+        ISnake Snake { get; }
+        //Here add the body to the snake
+    }
 }

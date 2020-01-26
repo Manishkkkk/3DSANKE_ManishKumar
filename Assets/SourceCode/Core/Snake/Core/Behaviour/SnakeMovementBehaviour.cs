@@ -1,63 +1,69 @@
-﻿using UnityEngine;
+﻿using Core.Gameplay;
+using Core.Snake;
+using UnityEngine;
 using Zenject;
-public class SnakeMovementBehaviour : ISnakeMovement, ITickable
+
+namespace Core.Gameplay
 {
-    public ISnake Snake { get; private set; }
-
-    private readonly SnakeSettings snakeSettings;
-    private readonly GameManager gameManager;
-    private float dis;
-    private Transform currntBodyPart;
-    private Transform prevBodyPart;
-
-    public SnakeMovementBehaviour(GameManager gameManager, ISnake snake, SnakeSettings snakeSettings)
+    public class SnakeMovementBehaviour : ISnakeMovement, ITickable
     {
-        Snake = snake;
-        this.snakeSettings = snakeSettings;
-        this.gameManager = gameManager;
-    }
+        public ISnake Snake { get; private set; }
 
-    public void Tick()
-    {
-        if (gameManager.gameState != GameState.Process)
-            return;
-        Snake.Move();
-        MoveSnakeBody();
-    }
+        private readonly SnakeSettings snakeSettings;
+        private readonly GameManager gameManager;
+        private float dis;
+        private Transform currntBodyPart;
+        private Transform prevBodyPart;
 
-    private void MoveSnakeBody()
-    {
-        float currSpeed = snakeSettings.speed;
-
-
-        if (Input.GetKey(KeyCode.W))
+        public SnakeMovementBehaviour(GameManager gameManager, ISnake snake, SnakeSettings snakeSettings)
         {
-            currSpeed *= 2;
+            Snake = snake;
+            this.snakeSettings = snakeSettings;
+            this.gameManager = gameManager;
         }
 
-        Snake.BodyPart[0].Translate(Snake.BodyPart[0].forward * currSpeed * Time.smoothDeltaTime, Space.World);
-
-        if (Input.GetAxis("Horizontal") != 0)
+        public void Tick()
         {
-            Snake.BodyPart[0].Rotate(Vector3.up * snakeSettings.rotationSpeed * Time.smoothDeltaTime * Input.GetAxis("Horizontal"));
+            if (gameManager.gameState != GameState.Process)
+                return;
+            Snake.Move();
+            MoveSnakeBody();
         }
-        for (int i = 1; i < Snake.BodyPart.Count; i++)
+
+        private void MoveSnakeBody()
         {
-            currntBodyPart = Snake.BodyPart[i];
-            prevBodyPart = Snake.BodyPart[i - 1];
+            float currSpeed = snakeSettings.speed;
 
-            dis = Vector3.Distance(prevBodyPart.position, currntBodyPart.position);
 
-            Vector3 newPos = prevBodyPart.position;
+            if (Input.GetKey(KeyCode.W))
+            {
+                currSpeed *= 2;
+            }
 
-            newPos.y = Snake.BodyPart[0].position.y;
-            float T = Time.deltaTime * dis / snakeSettings.minDistance * currSpeed;
-            if (T > 0.5f)
-                T = 0.5f;
+            Snake.BodyPart[0].Translate(Snake.BodyPart[0].forward * currSpeed * Time.smoothDeltaTime, Space.World);
 
-            currntBodyPart.position = Vector3.Slerp(currntBodyPart.position, newPos, T);
-            currntBodyPart.rotation = Quaternion.Slerp(currntBodyPart.rotation, prevBodyPart.rotation, T);
+            if (Input.GetAxis("Horizontal") != 0)
+            {
+                Snake.BodyPart[0].Rotate(Vector3.up * snakeSettings.rotationSpeed * Time.smoothDeltaTime * Input.GetAxis("Horizontal"));
+            }
+            for (int i = 1; i < Snake.BodyPart.Count; i++)
+            {
+                currntBodyPart = Snake.BodyPart[i];
+                prevBodyPart = Snake.BodyPart[i - 1];
+
+                dis = Vector3.Distance(prevBodyPart.position, currntBodyPart.position);
+
+                Vector3 newPos = prevBodyPart.position;
+
+                newPos.y = Snake.BodyPart[0].position.y;
+                float T = Time.deltaTime * dis / snakeSettings.minDistance * currSpeed;
+                if (T > 0.5f)
+                    T = 0.5f;
+
+                currntBodyPart.position = Vector3.Slerp(currntBodyPart.position, newPos, T);
+                currntBodyPart.rotation = Quaternion.Slerp(currntBodyPart.rotation, prevBodyPart.rotation, T);
+            }
         }
+
     }
-
 }

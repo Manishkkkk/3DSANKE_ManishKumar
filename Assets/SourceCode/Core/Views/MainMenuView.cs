@@ -5,49 +5,54 @@ using UnityEngine.UI;
 using TMPro;
 using Zenject;
 using UnityEngine.SceneManagement;
+using Frame.Views;
+using Core.ScoreSystem;
 
-public class MainMenuView : View<MainMenuView>, IInitializable
+namespace Core.Views
 {
-    [SerializeField] private Settings settings;
-
-    [Inject]
-    ScoreManager scoreManager;
-    [Inject]
-    private ZenjectSceneLoader _sceneLoader;
-    public string sceneName = "GameScene";
-
-    public override void OnEnable()
+    public class MainMenuView : View<MainMenuView>, IInitializable
     {
-        settings.btnPlay.onClick.AddListener(OnPlayClick);
-        base.OnEnable();
-    }
+        [SerializeField] private Settings settings;
 
-    public override void OnDisable()
-    {
-        settings.btnPlay.onClick.RemoveListener(OnPlayClick);
-        base.OnDisable();
-    }
+        [Inject]
+        ScoreManager scoreManager;
+        [Inject]
+        private ZenjectSceneLoader _sceneLoader;
+        public string sceneName = "GameScene";
 
-    public void InitView()
-    {
-        settings.txtHighScore.text = "High Score: "+scoreManager.HighScore.ToString();
-    }
+        public override void OnEnable()
+        {
+            settings.btnPlay.onClick.AddListener(OnPlayClick);
+            base.OnEnable();
+        }
 
-    private void OnPlayClick()
-    {
-        scoreManager.Reset();
-        _sceneLoader.LoadScene(sceneName, LoadSceneMode.Single);
-    }
+        public override void OnDisable()
+        {
+            settings.btnPlay.onClick.RemoveListener(OnPlayClick);
+            base.OnDisable();
+        }
 
-    public void Initialize()
-    {
-        InitView();
-    }
+        public void InitView()
+        {
+            settings.txtHighScore.text = "High Score: " + scoreManager.HighScore.ToString();
+        }
 
-    [System.Serializable]
-    public class Settings
-    {
-        public Button btnPlay;
-        public TMP_Text txtHighScore;
+        private void OnPlayClick()
+        {
+            scoreManager.Reset();
+            _sceneLoader.LoadScene(sceneName, LoadSceneMode.Single);
+        }
+
+        public void Initialize()
+        {
+            InitView();
+        }
+
+        [System.Serializable]
+        public class Settings
+        {
+            public Button btnPlay;
+            public TMP_Text txtHighScore;
+        }
     }
 }

@@ -1,21 +1,24 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-public class Snake : ISnake
+namespace Core.Snake
 {
-    public List<Transform> BodyPart { get; set; }
-
-    public Snake(SnakeSettings snakeSettings)
+    public class Snake : ISnake
     {
-        BodyPart = snakeSettings.bodyParts;
-    }
+        public List<Transform> BodyPart { get; set; }
 
-    public void AddBodyPart(Transform part)
-    {
-        BodyPart.Add(part);
-    }
+        public Snake(SnakeSettings snakeSettings)
+        {
+            BodyPart = snakeSettings.bodyParts;
+        }
 
-    public void Move()
-    {
-       
+        public void AddBodyPart(Transform part)
+        {
+            BodyPart.Add(part);
+        }
+
+        public void Move()
+        {
+
+        }
     }
 }
