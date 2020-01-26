@@ -4,5 +4,23 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/ThirdPartyTools/SnakeProject/Scenes/Menu.unity
+    guid: d8d49ed7e89fda34aaf31e2a8ce3e2bd
+  - enabled: 1
+    path: Assets/ThirdPartyTools/SnakeProject/Scenes/Options.unity
+    guid: 91302cccf39d4fe45838ff562f30d709
+  - enabled: 1
+    path: Assets/ThirdPartyTools/SnakeProject/Scenes/Mobile/MobileSnake.unity
+    guid: 96b893e2595e0db47ada8a6ddf43ece9
+  - enabled: 1
+    path: Assets/ThirdPartyTools/SnakeProject/Scenes/Mobile/MobileSnakePVP.unity
+    guid: 28576be67cd794c4da943bbd94014f78
+  - enabled: 1
+    path: Assets/ThirdPartyTools/SnakeProject/Scenes/PC/Snake.unity
+    guid: ba1fa2039b8490444affa8f58f07fc61
+  - enabled: 1
+    path: Assets/ThirdPartyTools/SnakeProject/Scenes/PC/SnakePVP.unity
+    guid: d7d29520adbfbed429dd4298324567da
   m_configObjects: {}
