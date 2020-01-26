@@ -6,24 +6,28 @@ public class FoodSpawnItem : MonoBehaviour, IFoodSpawnUnit
     private SignalBus signalBus;
     public IFoodUnit FoodUnit { get; private set; }
 
+    public IFoodScore FoodScore { get; private set; }
+
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("FoodHit" + collision.gameObject.tag);
         if (collision.gameObject.tag == "Snake")
         {
             DisptachOnFoodHit();
         }
     }
 
-    public void InjectDependency(SignalBus signalBus, IFoodUnit foodUnit)
-    {
-        this.signalBus = signalBus;
-        this.FoodUnit = foodUnit;
-    }
+
 
     public void DisptachOnFoodHit()
     {
-        signalBus.Fire(new OnFoodHitSignal(FoodUnit));
+        signalBus.Fire(new OnFoodHitSignal(FoodUnit, FoodScore));
         Destroy(this.gameObject);
+    }
+
+    public void InjectDependency(SignalBus signalBus, IFoodUnit foodUnit, IFoodScore foodScore)
+    {
+        this.signalBus = signalBus;
+        this.FoodUnit = foodUnit;
+        this.FoodScore = foodScore;
     }
 }

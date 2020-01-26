@@ -5,19 +5,22 @@ public class SnakeMovementBehaviour : ISnakeMovement, ITickable
     public ISnake Snake { get; private set; }
 
     private readonly SnakeSettings snakeSettings;
-
+    private readonly GameManager gameManager;
     private float dis;
     private Transform currntBodyPart;
     private Transform prevBodyPart;
 
-    public SnakeMovementBehaviour(ISnake snake, SnakeSettings snakeSettings)
+    public SnakeMovementBehaviour(GameManager gameManager, ISnake snake, SnakeSettings snakeSettings)
     {
         Snake = snake;
         this.snakeSettings = snakeSettings;
+        this.gameManager = gameManager;
     }
 
     public void Tick()
     {
+        if (gameManager.gameState != GameState.Process)
+            return;
         Snake.Move();
         MoveSnakeBody();
     }

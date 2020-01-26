@@ -13,6 +13,8 @@ public class BlueFood : IFood
 
     public Vector3 Size { get; private set; }
 
+    public int Score { get; private set; }
+
     private SignalBus signalBus;
 
     public BlueFood(SignalBus signalBus, Settings settings)
@@ -23,6 +25,7 @@ public class BlueFood : IFood
         TypeID = settings.typeId;
         Center = settings.center;
         Size = settings.size;
+        Score = settings.score;
     }
 
     public GameObject Spawn()
@@ -30,7 +33,7 @@ public class BlueFood : IFood
         Vector3 pos = Center + new Vector3(UnityEngine.Random.Range(-Size.x / 2, Size.x / 2), Yoffeset, UnityEngine.Random.Range(-Size.x / 2, Size.x / 2));
         var go = GameObject.Instantiate(FoodPrefab, pos, Quaternion.identity);
         var component = go.GetComponent<IFoodSpawnUnit>();
-        component.InjectDependency(signalBus, this);
+        component.InjectDependency(signalBus, this, this);
         return go;
     }
 
@@ -42,6 +45,7 @@ public class BlueFood : IFood
         public int typeId;
         public Vector3 center;
         public Vector3 size;
+        public int score = 30;
     }
 }
 
